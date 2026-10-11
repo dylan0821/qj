@@ -1,6 +1,5 @@
 'use strict';
 const $ = (id) => document.getElementById(id);
-$('welcome-notice').showModal();
 const state = {view: 'paper', page: 1, paper: '', chapter: '', topic: '', enrichmentSystem: '', enrichmentChapter: '', enrichmentSection: '', config: null,
   result: null, current: null, answers: false, searchSeq: 0, detailSeq: 0, navTerm: '',
   collection: '', similar: '', similarSystem: '', personal: {questions:{}, basket:[], recent:[]}, restoring: true, resume: null};
@@ -742,6 +741,7 @@ async function loadInitialConfig() {
 (async () => {
   try {
     await window.QJAuth.ready();
+    $('welcome-notice').showModal();
     const [config,personal]=await Promise.all([loadInitialConfig(),api('/api/personal')]);
     state.personal=personal;
     const saved=readView();
