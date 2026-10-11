@@ -1,0 +1,9 @@
+{
+  "name": "qj-reader-api",
+  "main": "backend/worker.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {"directory": "./private-assets", "binding": "PRIVATE_ASSETS", "run_worker_first": true},
+  "d1_databases": [{"binding": "DB", "database_name": "qj-invitations", "database_id": "efeec9bd-a927-491c-9f95-32c90c8de1d4", "migrations_dir": "backend/migrations"}],
+  "triggers": {"crons": ["0 3 * * *"]},
+  "vars": {"ALLOWED_ORIGINS": "https://dylandong.top,https://dylan0821.github.io"}
+}

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#f4f6f8">
+  <script src="./theme.js"></script>
+  <title>强基计划数学题库</title>
+  <link rel="icon" type="image/png" sizes="128x128" href="./logo-favicon.png">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./math-config.js"></script>
+  <script defer src="./vendor/tex-svg.js"></script>
+  <script defer src="./site-config.js"></script>
+  <script defer src="./auth.js"></script>
+  <script defer src="./reader-data.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body class="access-locked">
+  <section id="invite-gate" class="invite-gate" aria-labelledby="invite-title">
+    <form id="invite-form" class="invite-card">
+      <img src="./logo-flat-skeuo.png" alt="" width="56" height="56">
+      <h1 id="invite-title">强基计划数学题库</h1>
+      <p>请输入邀请码进入题库</p>
+      <label for="invite-code">邀请码</label>
+      <input id="invite-code" autocomplete="off" spellcheck="false" required placeholder="填写收到的邀请码">
+      <button id="invite-submit" type="submit">进入题库</button>
+      <p id="invite-message" role="status" aria-live="polite"></p>
+      <small>一次性邀请码兑换后，可在当前浏览器持续访问。<br>如有问题请联系 Dylaaan（微信：Dylan_PKU）。</small>
+    </form>
+  </section>
+  <div id="startup-loading" class="startup-loading" role="status" aria-live="polite">
+    <span id="startup-loading-message">正在打开题库…</span>
+  </div>
+  <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M3 4h6c2 0 3 1 3 2v15c0-2-1-3-3-3H3zm18 0h-6c-2 0-3 1-3 2v15c0-2 1-3 3-3h6z"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 10a8 8 0 0 0-14-5L3 8m0-5v5h5M4 14a8 8 0 0 0 14 5l3-3m0 5v-5h-5"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="m14 5-7 7 7 7"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="m10 5 7 7-7 7"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V3H3v13h5"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m7 6-6 6 6 6m10-12 6 6-6 6m-4-15-2 18"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14.5A9 9 0 0 1 9.5 3.5 9 9 0 1 0 20.5 14.5Z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 1v2m0 18v2M1 12h2m18 0h2M4.2 4.2l1.4 1.4m12.8 12.8 1.4 1.4m0-15.6-1.4 1.4M5.6 18.4l-1.4 1.4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1" fill="currentColor" stroke="none"/></symbol>
+  </defs></svg>
+  <header class="topbar">
+    <button id="sidebar-toggle" class="icon-button sidebar-toggle" aria-label="打开题库目录" aria-expanded="false" aria-controls="sidebar"><svg class="icon"><use href="#i-menu"/></svg></button>
+    <a class="brand" href="./" aria-label="强基计划数学题库首页"><span class="brand-mark"><img src="./logo-flat-skeuo.png" alt="" width="40" height="40"></span><span>强基计划数学题库</span></a>
+    <form id="search-form" class="search-box" role="search">
+      <svg class="icon"><use href="#i-search"/></svg>
+      <input id="search" type="search" autocomplete="off" placeholder="搜索知识点、题干或解题思路…" aria-label="搜索题目" aria-controls="search-suggestions" aria-expanded="false">
+      <kbd>⌘ K</kbd>
+      <div id="search-suggestions" class="search-suggestions" role="listbox" hidden></div>
+    </form>
+    <div class="top-actions"><button id="access-logout" class="text-button">退出登录</button><select id="theme-select" class="theme-select" aria-label="外观"><option value="system">跟随系统</option><option value="light">浅色模式</option><option value="dark">深色模式</option></select><button id="basket-open" class="text-button">选题篮 <span id="basket-count">0</span></button><button id="refresh" class="icon-button" title="刷新题库" aria-label="刷新题库"><svg class="icon"><use href="#i-refresh"/></svg></button></div>
+  </header>
+  <div class="workspace">
+    <aside id="sidebar" class="sidebar" aria-label="题库导航">
+      <div class="view-tabs" role="tablist" aria-label="浏览方式">
+        <button id="tab-paper" role="tab" aria-selected="true">整卷</button>
+        <button id="tab-classification" role="tab" aria-selected="false">分类</button>
+      </div>
+      <div id="personal-nav" class="personal-nav" aria-label="我的题目">
+        <button data-collection="recent">最近浏览 <span id="recent-count">0</span></button>
+        <button data-collection="favorite">收藏 <span id="favorite-count">0</span></button>
+        <button data-collection="basket">选题篮 <span id="basket-list-count">0</span></button>
+      </div>
+      <input id="nav-search" class="nav-search" type="search" placeholder="查找目录…" aria-label="筛选导航">
+      <nav id="navigation" aria-label="卷名与知识点目录"></nav>
+      <footer class="sidebar-footer"><span id="library-count">正在读取题库…</span><small id="load-time"></small></footer>
+    </aside>
+    <section class="content-area">
+      <div class="panes">
+        <section class="results-pane" aria-label="题目列表">
+          <div class="results-heading"><div><h1 id="selection-title">选题篮</h1><span id="result-count">正在加载…</span><small id="similar-scope-note" hidden></small></div></div>
+          <div id="paper-number-nav" class="paper-number-nav" hidden aria-label="整卷题号导航"></div>
+          <div id="results" class="results" aria-live="polite"></div>
+          <div class="pagination"><button id="page-prev" class="icon-button" aria-label="上一页"><svg class="icon"><use href="#i-left"/></svg></button><span id="page-info"></span><button id="page-next" class="icon-button" aria-label="下一页"><svg class="icon"><use href="#i-right"/></svg></button></div>
+        </section>
+        <main class="reader-pane" aria-label="题目阅读区">
+          <div class="reader-toolbar">
+            <button id="back-to-list" class="text-button mobile-back">返回列表</button>
+            <div class="reader-arrows"><button id="question-prev" class="icon-button" aria-label="上一题" aria-keyshortcuts="ArrowUp" title="上一题（↑）" disabled><svg class="icon"><use href="#i-left"/></svg></button><button id="question-next" class="icon-button" aria-label="下一题" aria-keyshortcuts="ArrowDown" title="下一题（↓）" disabled><svg class="icon"><use href="#i-right"/></svg></button><span id="reading-position"></span></div>
+            <div class="reader-actions">
+              
+              
+            </div>
+          </div>
+          <div id="reader-scroll" class="reader-scroll"><div class="empty-reader empty-reader-home"><div class="empty-symbol">ƒ</div><h2>从题库中选一道题开始</h2><p>可按整卷或知识点分类浏览，也可以直接搜索题干与解题思路。</p><div class="empty-actions"><button type="button" data-empty-action="browse">浏览全部题目</button><button type="button" data-empty-action="recent">继续最近浏览</button></div><small>快捷键 <kbd>⌘ K</kbd> 可随时聚焦搜索</small></div></div>
+        </main>
+      </div>
+    </section>
+  </div>
+  <button id="sidebar-backdrop" class="sidebar-backdrop" aria-label="关闭题库目录" hidden></button>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <dialog id="welcome-notice" class="welcome-notice" aria-labelledby="welcome-notice-title">
+    <form method="dialog">
+      <h2 id="welcome-notice-title">提示</h2>
+      <p>本题库整理自网络回忆版，大部分解答使用 AI 生成，不能保证题目和解答准确。</p>
+      <p>目前题库处于个人测试阶段，<strong>随时可能下线关闭</strong>。如有问题欢迎联系 <strong>Dylaaan（微信：Dylan_PKU）</strong>。</p>
+      <div class="welcome-notice-actions"><button class="primary-button" value="continue" autofocus>我已了解，开始浏览</button></div>
+    </form>
+  </dialog>
+  <dialog id="modal"><div class="modal-header"><h2 id="modal-title"></h2><button id="modal-close" class="icon-button" aria-label="关闭弹窗"><svg class="icon"><use href="#i-close"/></svg></button></div><div id="modal-content"></div></dialog>
+</body>
+</html>

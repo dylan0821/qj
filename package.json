@@ -1,0 +1,12 @@
+{
+  "name": "qj-reader",
+  "private": true,
+  "scripts": {
+    "dev:api": "wrangler dev --port 8787 --ip 127.0.0.1",
+    "db:local": "wrangler d1 migrations apply DB --local",
+    "test:auth": "node backend/test-auth.mjs",
+    "deploy:api": "wrangler deploy",
+    "preview": "python3 preview.py"
+  },
+  "devDependencies": {"wrangler": "^4.149.0"}
+}
