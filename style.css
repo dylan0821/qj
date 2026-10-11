@@ -3,7 +3,7 @@
 @media(min-width:1550px){.sidebar{width:266px}.results-pane{width:340px}.question-article{padding-top:48px}.tex-content{font-size:18px}}
 @media(max-width:1150px){.sidebar{width:205px;padding-left:12px;padding-right:12px}.results-pane{width:260px}.topbar{padding:0 20px;gap:22px}.brand{width:260px}.question-article{padding:30px 26px}.reader-toolbar{padding:0 12px}.reader-arrows>span{display:none}.filters{padding:0 14px;gap:7px}.filters select{padding-left:6px;max-width:110px}.choices{grid-template-columns:1fr}.reader-actions{gap:1px}}
 @media(max-width:850px){.topbar{height:66px;padding:0 15px;gap:20px}.brand{width:auto;font-size:16px;gap:8px}.brand small{display:none}.brand-mark{width:30px;height:34px}.search-box{max-width:none;width:auto;flex:1}.top-actions .local-dot{display:none}.top-actions{margin-left:0}.workspace{height:calc(100dvh - 66px)}.sidebar{width:190px}.results-pane{width:100%}.reader-pane{display:none}.content-area.reading .results-pane{display:none}.content-area.reading .reader-pane{display:flex}.mobile-back{display:block}.reader-arrows>span{display:none}.filters{height:auto;min-height:57px;flex-wrap:wrap;padding:10px;gap:5px}.filters select{font-size:10px}.question-article{padding:26px 22px}.reader-actions .tool-button{font-size:10px;padding:6px}.reader-toolbar{padding:0 10px}.question-article h2{font-size:19px}.tex-content{font-size:16px}.reader-arrows{gap:0}}
-@media(max-width:540px){.sidebar{width:135px;padding:16px 8px 0}.view-tabs button{font-size:11px}.nav-item{padding-left:6px;font-size:11px}.nav-item .count{display:none}.nav-all{font-size:11px;padding:8px 6px}.nav-search{font-size:10px;padding-left:3px}.nav-group>summary{padding-left:3px}.chapter-nav>summary{font-size:11px}.chapter-button{font-size:10px}.sidebar-footer{padding:12px 3px;font-size:9px}.sidebar-footer small{font-size:8px}.brand>span:last-child{display:none}.topbar{gap:11px}.search-box{height:37px}.search-box input{font-size:11px}.search-box kbd{display:none}.content-area.reading{position:absolute;inset:66px 0 0;z-index:2}.content-area.reading .filters{display:none}.reader-actions .tool-button span{display:none}.reader-actions .tool-button{padding:9px}.results-heading{padding:18px 15px 12px}.results{padding:0 6px}.question-card{padding:13px 9px}.filters select{max-width:105px}.filters #filter-region{display:none}.question-article{padding:25px 22px}.question-article h2{font-size:20px}.reader-toolbar{height:53px}}
+@media(max-width:540px){.sidebar{width:135px;padding:16px 8px 0}.view-tabs button{font-size:11px}.nav-item{padding-left:6px;font-size:11px}.nav-item .count{display:none}.nav-all{font-size:11px;padding:8px 6px}.nav-search{font-size:10px;padding-left:3px}.nav-group>summary{padding-left:3px}.chapter-nav>summary{font-size:11px}.chapter-button{font-size:10px}.sidebar-footer{padding:12px 3px;font-size:9px}.sidebar-footer small{font-size:8px}.brand>span:last-child{display:none}.topbar{gap:11px}.search-box{height:37px}.search-box input{font-size:11px}.search-box kbd{display:none}.content-area.reading{position:absolute;inset:0;z-index:2}.content-area.reading .filters{display:none}.reader-actions .tool-button span{display:none}.reader-actions .tool-button{padding:9px}.results-heading{padding:18px 15px 12px}.results{padding:0 6px}.question-card{padding:13px 9px}.filters select{max-width:105px}.filters #filter-region{display:none}.question-article{padding:25px 22px}.question-article h2{font-size:20px}.reader-toolbar{height:53px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
 /* Personal workspace and advanced search */
@@ -482,7 +482,7 @@ dialog{box-shadow:0 12px 42px #17203324}
 [data-theme="dark"] .question-controls button.selected{background:var(--accent-soft);color:var(--accent)}
 
 @media(max-width:850px){.brand{width:auto}.topbar{height:64px}.workspace{height:calc(100dvh - 64px)}.theme-select{width:104px}}
-@media(max-width:540px){.content-area.reading{inset:64px 0 0}}
+@media(max-width:540px){.content-area.reading{inset:0}}
 
 /* Canonical workspace refinement: reading-first hierarchy and responsive navigation. */
 .sidebar-toggle,.sidebar-backdrop{display:none}
@@ -613,7 +613,7 @@ body{font-size:15px}
   .results-heading{padding:18px 18px 13px}
   .question-card{padding:16px 18px}
   .card-title,.card-excerpt{font-size:13px}
-  .content-area.reading{inset:64px 0 0}
+  .content-area.reading{inset:0}
   .reader-toolbar{height:54px;padding:0 10px}
   .reader-toolbar .text-button,.reader-toolbar .icon-button,.reader-toolbar .tool-button{min-height:40px;min-width:40px}
   .question-article{padding:26px 22px 42px}
