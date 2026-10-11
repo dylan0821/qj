@@ -6,7 +6,7 @@
 
 - 一次性码只能兑换一次，兑换后当前浏览器持续可用；清除浏览器数据、换浏览器或退出登录后需重新发码。
 - 长期码可重复兑换。管理员停用任意邀请码后，所有关联访问凭据失效；包括已兑换的一次性码。
-- 管理页面为 `https://qj-reader-api.dylan-dong.workers.dev/admin`。登录后可生成、复制邀请码、填写备注、查看兑换次数和停用。完整码仅在创建时显示，请复制保存。
+- 管理页面为 `https://qj-api.dylandong.top/admin`。登录后可生成、复制邀请码、填写备注、查看兑换次数和停用。完整码仅在创建时显示，请复制保存。
 - 浏览器访问凭据保存在当前浏览器；数据库只存邀请码和凭据的哈希。管理口令通过 Cloudflare Secret 设置，管理会话使用 HttpOnly Cookie。
 - 已提供给获准读者的内容可以被保存；此功能控制访问资格，并不防止获准读者复制内容。
 
@@ -40,7 +40,7 @@ npm run test:auth
 
 先完成本地与浏览器验收，再登录 Cloudflare。确认 `wrangler.jsonc` 中数据库 `qj-invitations` 的 ID，然后执行远程数据库迁移，设置 `ADMIN_KEY` secret，部署后端。将 `site-config.js` 的 `apiBase` 设置为实际 HTTPS Worker 地址。生产 CORS 仅允许 `https://dylandong.top` 和 `https://dylan0821.github.io`，不要上传本地测试配置。
 
-GitHub 仓库启用 Pages 的 GitHub Actions 发布方式，只推送无题目数据历史的 `main`。域名沿用账号已有的自定义域名，不迁移 DNS。上线后仍需复查未登录题目和图片访问被拒绝，以及两类邀请码兑换、保持访问与停用行为。
+GitHub 仓库启用 Pages 的 GitHub Actions 发布方式，只推送无题目数据历史的 `main`。前端沿用账号已有的自定义域名；域名 DNS 由 Cloudflare 管理，根域名与 www 保留指向 GitHub Pages 的 DNS only 记录。后端通过自定义域名 `qj-api.dylandong.top` 访问，绑定已写入 `wrangler.jsonc`。上线后仍需复查未登录题目和图片访问被拒绝，以及两类邀请码兑换、保持访问与停用行为。
 
 ## 更新题库
 
@@ -51,3 +51,9 @@ GitHub 仓库启用 Pages 的 GitHub Actions 发布方式，只推送无题目�
 ## 上线验收（2026-10-12）
 
 本地与 Cloudflare 正式后端各通过 32 项实际请求验收，涵盖一次性码 10 请求并发仅成功一次、长期码重复兑换、关联会话停用、退出、限流、跨域限制、管理员操作保护和 842 道题目录及配图访问保护。管理口令与阅读数据未提交到 GitHub。
+
+## 后端域名接入（2026-10-12）
+
+为处理默认 workers.dev 域名在部分网络无法直连的问题，已将后端绑定到 `https://qj-api.dylandong.top`，网页与管理页面均使用新地址。域名仍在阿里云注册，DNS 服务器改为 `clay.ns.cloudflare.com` 和 `hadlee.ns.cloudflare.com`。根域名与 www 仍由 GitHub Pages 托管。原 DNS 记录在旁边私有题库目录的 `配置/域名备份/` 中保存。
+
+使用同一 Worker 与 D1 数据库，现有邀请码和读者访问凭据继续有效。新域名通过 13 项无代理实际请求验收，包括 HTTPS、跨域、一次性并发兑换、长期码重复兑换、会话保持、题目与图片读取、访问限制及停用。测试邀请码已停用。不同运营商仍需按实际网络确认访问情况。
